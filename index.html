@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="弈思學堂——週末桌遊課程與平日數學、理化輔導課程，小班制教學（每班4人），歡迎預約試上。">
+<meta property="og:title" content="弈思學堂">
+<meta property="og:description" content="週末桌遊課程與平日數學、理化輔導課程，小班制教學。">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>弈思學堂</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap');
+
+  :root{
+    --paper:#FBF7EE;
+    --paper-alt:#F2ECDC;
+    --card:#FFFFFF;
+    --ink:#2E2B22;
+    --ink-soft:#746F60;
+    --orange:#4B6B47;
+    --orange-bright:#6B8C63;
+    --orange-deep:#35492F;
+    --orange-tint:#E4EADD;
+    --line: rgba(46,43,34,0.12);
+    --shadow: 0 20px 44px -24px rgba(46,43,34,0.4);
+    --shadow-sm: 0 8px 18px -12px rgba(46,43,34,0.3);
+    --on-orange:#13200E;
+    --rust:#C06B3E;
+    --rust-deep:#8A4A1F;
+    --rust-tint:#F2D9C4;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#1B1A15;
+      --paper-alt:#232019;
+      --card:#262319;
+      --ink:#F1EEE4;
+      --ink-soft:#B6AF9C;
+      --orange:#7FA077;
+      --orange-bright:#96B88D;
+      --orange-deep:#C9DCC2;
+      --orange-tint:#2C3828;
+      --line: rgba(241,238,228,0.14);
+      --shadow: 0 20px 44px -20px rgba(0,0,0,0.65);
+      --shadow-sm: 0 8px 18px -12px rgba(0,0,0,0.55);
+      --rust:#E08B5D;
+      --rust-deep:#F3C39F;
+      --rust-tint:#3E2A1C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#1B1A15;
+    --paper-alt:#232019;
+    --card:#262319;
+    --ink:#F1EEE4;
+    --ink-soft:#B6AF9C;
+    --orange:#7FA077;
+    --orange-bright:#96B88D;
+    --orange-deep:#C9DCC2;
+    --orange-tint:#2C3828;
+    --line: rgba(241,238,228,0.14);
+    --shadow: 0 20px 44px -20px rgba(0,0,0,0.65);
+    --shadow-sm: 0 8px 18px -12px rgba(0,0,0,0.55);
+    --rust:#E08B5D;
+    --rust-deep:#F3C39F;
+    --rust-tint:#3E2A1C;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    font-size:16px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:900;
+    line-height:1.28;
+    margin:0;
+    letter-spacing:-.01em;
+    text-wrap:balance;
+    color:var(--ink);
+  }
+  p{margin:0;}
+  a{color:inherit;}
+  ul{margin:0;padding:0;list-style:none;}
+  .num{font-family:"Fredoka","Noto Sans TC",sans-serif;font-weight:600;font-variant-numeric:tabular-nums;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  section{position:relative;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:"Fredoka",sans-serif;font-weight:600;font-size:13px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--orange-deep);
+    background:var(--orange-tint);
+    padding:6px 14px;border-radius:999px;
+  }
+  :focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:4px;}
+
+  /* ---------- nav ---------- */
+  header.site{
+    position:sticky;top:0;z-index:50;
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 28px;max-width:1120px;margin:0 auto;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-family:"Noto Sans TC",sans-serif;font-weight:900;font-size:19px;}
+  .brand svg{width:32px;height:32px;flex:none;}
+  .nav-links{display:flex;gap:28px;align-items:center;}
+  .nav-links a{
+    font-size:15px;font-weight:500;color:var(--ink-soft);text-decoration:none;
+    padding:6px 2px;border-bottom:2px solid transparent;transition:color .2s, border-color .2s;
+  }
+  .nav-links a:hover{color:var(--orange-deep);border-color:var(--orange);}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:"Noto Sans TC",sans-serif;font-weight:700;font-size:15px;
+    padding:11px 22px;border-radius:999px;border:none;cursor:pointer;
+    text-decoration:none;white-space:nowrap;transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .btn-primary{background:var(--orange);color:var(--on-orange);box-shadow:var(--shadow-sm);}
+  .btn-primary:hover{background:var(--orange-deep);transform:translateY(-2px);}
+  .btn-ghost{background:transparent;color:var(--orange-deep);border:1.5px solid var(--orange);}
+  .btn-ghost:hover{background:var(--orange-tint);}
+  .btn-on-orange{background:#fff;color:var(--orange-deep);}
+  .btn-on-orange:hover{background:#fff;transform:translateY(-2px);box-shadow:0 10px 22px -10px rgba(0,0,0,.35);}
+  .menu-toggle{display:none;background:none;border:none;padding:6px;cursor:pointer;color:var(--ink);}
+
+  /* ---------- hero band + card ---------- */
+  .hero-band{
+    background:linear-gradient(135deg, var(--orange-bright) 0%, var(--orange) 55%, var(--orange-deep) 100%);
+    color:#fff;padding:64px 0 150px;text-align:center;position:relative;overflow:hidden;
+  }
+  .hero-band::before, .hero-band::after{
+    content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,0.12);
+  }
+  .hero-band::before{width:340px;height:340px;top:-140px;right:-80px;}
+  .hero-band::after{width:220px;height:220px;bottom:-100px;left:-60px;background:rgba(255,255,255,0.08);}
+  .hero-eyebrow{
+    position:relative;font-family:"Fredoka",sans-serif;font-weight:600;font-size:13px;
+    letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.85);
+  }
+  .hero-band h1{position:relative;color:#fff;font-size:clamp(30px,4.6vw,48px);margin-top:16px;max-width:760px;margin-inline:auto;}
+  .hero-date{position:relative;margin-top:12px;font-family:"Fredoka",sans-serif;font-size:14px;letter-spacing:.04em;color:rgba(255,255,255,.82);}
+  .hero-sub{position:relative;margin-top:18px;font-size:16px;color:rgba(255,255,255,.92);max-width:52ch;margin-inline:auto;}
+
+  .hero-card{
+    max-width:920px;margin:-104px auto 0;background:var(--card);border-radius:26px;
+    box-shadow:var(--shadow);padding:34px 40px 38px;position:relative;z-index:2;
+  }
+  .alert-box{display:flex;gap:14px;background:var(--orange-tint);border-left:4px solid var(--orange);border-radius:12px;padding:16px 18px;align-items:flex-start;text-align:left;}
+  .alert-box svg{width:22px;height:22px;flex:none;color:var(--orange-deep);margin-top:2px;}
+  .alert-box b{color:var(--orange-deep);font-size:15px;}
+  .alert-box p{margin-top:4px;color:var(--ink-soft);font-size:13.5px;}
+
+  .bulletin-list{margin-top:8px;display:flex;flex-direction:column;}
+  .bulletin-row{display:flex;gap:16px;align-items:flex-start;padding:20px 0;border-bottom:1px solid var(--line);text-align:left;}
+  .bulletin-row:last-child{border-bottom:none;}
+  .bulletin-icon{width:40px;height:40px;border-radius:11px;background:var(--orange-tint);display:flex;align-items:center;justify-content:center;flex:none;}
+  .bulletin-icon svg{width:21px;height:21px;color:var(--orange-deep);}
+  .bulletin-text{flex:1;font-size:15px;color:var(--ink-soft);align-self:center;}
+  .bulletin-text b{color:var(--ink);font-weight:700;}
+  .badge{
+    font-family:"Fredoka",sans-serif;font-size:12px;font-weight:600;letter-spacing:.03em;
+    padding:5px 12px;border-radius:999px;background:var(--orange-tint);color:var(--orange-deep);
+    white-space:nowrap;align-self:center;
+  }
+  .hero-card-cta{display:flex;gap:14px;justify-content:center;margin-top:28px;flex-wrap:wrap;}
+
+  /* ---------- section shells ---------- */
+  .section{padding:88px 0;}
+  .section.alt{background:var(--paper-alt);}
+  .section-head{max-width:640px;margin:0 0 48px;}
+  .section-head.center{max-width:640px;margin-inline:auto;text-align:center;}
+  .section-head h2{font-size:clamp(26px,3.2vw,36px);margin-top:14px;}
+  .section-head p{margin-top:14px;color:var(--ink-soft);font-size:16px;}
+
+  /* ---------- features ---------- */
+  .feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .feature-card{
+    background:var(--card);border-radius:20px;padding:26px 22px;
+    box-shadow:var(--shadow-sm);border:1px solid var(--line);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+  .feature-card svg{width:40px;height:40px;margin-bottom:14px;}
+  .feature-card h3{font-family:"Noto Sans TC",sans-serif;font-size:17px;font-weight:700;}
+  .feature-card p{margin-top:8px;font-size:14.5px;color:var(--ink-soft);}
+
+  /* ---------- programs ---------- */
+  .program-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+  .program-card{
+    background:var(--card);border:1px solid var(--line);border-radius:22px;
+    padding:30px 28px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;
+  }
+  .program-icon{width:56px;height:56px;border-radius:16px;background:var(--orange-tint);display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+  .program-icon svg{width:30px;height:30px;color:var(--orange-deep);}
+  .program-card h3{font-size:21px;}
+  .program-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+  .program-card p.desc{margin-top:14px;color:var(--ink-soft);font-size:14.5px;}
+  .program-points{margin-top:18px;display:flex;flex-direction:column;gap:10px;}
+  .program-points li{display:flex;gap:10px;font-size:14px;color:var(--ink-soft);align-items:flex-start;}
+  .program-points svg{width:17px;height:17px;flex:none;color:var(--orange-deep);margin-top:2px;}
+  .program-time{margin-top:auto;padding-top:20px;border-top:1px dashed var(--line);font-family:"Fredoka",sans-serif;color:var(--orange-deep);font-weight:600;font-size:16px;}
+  .program-time span{display:block;font-family:"Noto Sans TC",sans-serif;font-size:12.5px;color:var(--ink-soft);font-weight:400;margin-top:2px;}
+
+  /* ---------- weekly schedule ---------- */
+  .week-list{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);}
+  .week-row{display:grid;grid-template-columns:64px 1fr auto;gap:18px;align-items:center;padding:16px 24px;border-bottom:1px solid var(--line);}
+  .week-row:last-child{border-bottom:none;}
+  .week-row.weekend{background:var(--orange-tint);}
+  .day-badge{width:38px;height:38px;border-radius:10px;background:var(--paper-alt);color:var(--ink-soft);display:flex;align-items:center;justify-content:center;font-family:"Fredoka",sans-serif;font-weight:600;font-size:14px;}
+  .week-row.weekend .day-badge{background:var(--orange);color:#fff;}
+  .week-course{font-size:15px;font-weight:700;}
+  .week-course span{display:block;font-weight:400;font-size:13px;color:var(--ink-soft);margin-top:2px;}
+  .week-time{font-family:"Fredoka",sans-serif;color:var(--ink-soft);font-size:14px;white-space:nowrap;}
+
+  /* ---------- teachers ---------- */
+  .teacher-grid{display:flex;justify-content:center;}
+  .teacher-card{
+    background:var(--card);border-radius:22px;padding:34px 36px;text-align:center;
+    box-shadow:var(--shadow-sm);border:1px solid var(--line);
+    max-width:480px;width:100%;
+  }
+  .avatar{width:88px;height:88px;margin:0 auto 16px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--orange-tint);}
+  .avatar svg{width:46px;height:46px;color:var(--orange-deep);}
+  .teacher-card h3{font-family:"Noto Sans TC",sans-serif;font-size:20px;font-weight:700;}
+  .teacher-role{font-size:13px;color:var(--orange-deep);font-weight:600;margin-top:4px;display:block;}
+  .teacher-card p.bio{margin-top:14px;font-size:14px;color:var(--ink-soft);text-align:left;}
+  .teacher-credentials{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px;}
+  .teacher-exp{margin-top:18px;display:flex;flex-direction:column;gap:7px;text-align:left;padding-top:16px;border-top:1px dashed var(--line);}
+  .teacher-exp li{font-size:13.5px;color:var(--ink-soft);display:flex;gap:8px;align-items:flex-start;}
+  .teacher-exp li b{color:var(--ink);font-weight:600;}
+
+  /* ---------- testimonial ---------- */
+  .quote-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+  .quote{
+    background:var(--rust-tint);border-radius:20px;padding:28px 26px;position:relative;
+  }
+  .quote p.text{font-size:15.5px;color:var(--rust-deep);font-weight:500;}
+  .quote p.who{margin-top:14px;font-size:13px;color:var(--rust);font-family:"Fredoka",sans-serif;}
+
+  /* ---------- contact / footer ---------- */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+  .info-row{display:flex;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line);}
+  .info-row:last-child{border-bottom:none;}
+  .info-row svg{width:22px;height:22px;flex:none;color:var(--orange-deep);margin-top:2px;}
+  .info-row b{display:block;font-size:13px;color:var(--ink-soft);font-weight:500;}
+  .info-row span{font-size:15.5px;font-family:"Fredoka",sans-serif;color:var(--ink);}
+  .cta-card{
+    background:linear-gradient(135deg, var(--orange-bright), var(--orange-deep));
+    color:var(--on-orange);border-radius:24px;padding:40px 36px;
+    box-shadow:var(--shadow);
+  }
+  .cta-card h2{color:inherit;font-size:26px;}
+  .cta-card p{margin-top:12px;opacity:.85;font-size:15px;}
+  .cta-card .btn{margin-top:22px;}
+
+  footer.site{padding:40px 0;border-top:1px solid var(--line);background:var(--paper-alt);}
+  .foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13.5px;color:var(--ink-soft);}
+  .foot-brand{display:flex;align-items:center;gap:8px;font-family:"Noto Sans TC",sans-serif;font-weight:900;color:var(--orange-deep);}
+  .foot-brand svg{width:22px;height:22px;}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:920px){
+    .feature-grid{grid-template-columns:repeat(2,1fr);}
+    .program-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .quote-strip{grid-template-columns:1fr;}
+    .hero-card{margin-top:-72px;padding:28px 26px 32px;}
+  }
+  @media (max-width:720px){
+    .nav-links{
+      position:fixed;inset:64px 16px auto 16px;background:var(--card);border:1px solid var(--line);
+      border-radius:18px;padding:18px;flex-direction:column;align-items:flex-start;gap:6px;
+      box-shadow:var(--shadow);display:none;
+    }
+    .nav-links.open{display:flex;}
+    .nav-links a{width:100%;padding:10px 6px;}
+    .menu-toggle{display:block;}
+    .nav .btn-primary{display:none;}
+    .feature-grid{grid-template-columns:1fr;}
+    .teacher-card{padding:28px 24px;}
+    .week-row{grid-template-columns:44px 1fr;row-gap:4px;}
+    .week-time{grid-column:2;font-size:13px;}
+    .bulletin-row{flex-wrap:wrap;}
+    .badge{margin-left:56px;}
+  }
+  @media (max-width:520px){
+    .wrap{padding:0 20px;}
+    .hero-band{padding:56px 0 130px;}
+  }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="nav">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <rect x="2" y="2" width="36" height="36" rx="11" fill="var(--orange)"/>
+        <g stroke="#fff" stroke-width="1.8" stroke-linecap="round">
+          <line x1="12" y1="12" x2="20" y2="20"/>
+          <line x1="28" y1="12" x2="20" y2="20"/>
+          <line x1="12" y1="28" x2="20" y2="20"/>
+          <line x1="28" y1="28" x2="20" y2="20"/>
+        </g>
+        <circle cx="12" cy="12" r="3" fill="#fff"/>
+        <circle cx="28" cy="12" r="3" fill="#fff"/>
+        <circle cx="12" cy="28" r="3" fill="#fff"/>
+        <circle cx="28" cy="28" r="3" fill="#fff"/>
+        <circle cx="20" cy="20" r="4.3" fill="#fff"/>
+        <circle cx="20" cy="20" r="1.7" fill="var(--orange)"/>
+      </svg>
+      弈思學堂
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">關於我們</a>
+      <a href="#programs">課程項目</a>
+      <a href="#schedule">一週課表</a>
+      <a href="#teachers">師資陣容</a>
+      <a href="#contact">聯絡我們</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <a class="btn btn-primary" href="#contact">預約試上</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="開啟選單" aria-expanded="false">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero-band">
+    <div class="wrap">
+      <span class="hero-eyebrow">Board Game · Math &amp; Science</span>
+      <h1>假日玩桌遊，平日拚數理。</h1>
+      <p class="hero-sub">弈思學堂只專注做好兩件事：週末用桌遊練邏輯與團隊合作，平日晚上把數學、理化一次顧好。</p>
+      <div class="hero-date">常態招生・有需求就開課</div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="hero-card reveal in">
+      <div class="alert-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <div>
+          <b>開課公告</b>
+          <p>不限固定開班月份，桌遊課程與數理輔導課程只要有需求就開課，歡迎隨時洽詢試上與排課。</p>
+        </div>
+      </div>
+
+      <div class="bulletin-list">
+        <div class="bulletin-row">
+          <div class="bulletin-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="8.5" cy="8.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="8.5" cy="15.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="15.5" cy="15.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <div class="bulletin-text"><b>六日桌遊課程：</b>透過策略桌遊訓練邏輯思考與團隊合作，適合國小中年級到國中生混齡同樂。</div>
+          <span class="badge">週六・週日</span>
+        </div>
+        <div class="bulletin-row">
+          <div class="bulletin-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6M12 2v5"/><path d="M8 7h8l3 8a4 4 0 0 1-4 5H9a4 4 0 0 1-4-5l3-8Z"/><path d="M7.5 14h9"/></svg>
+          </div>
+          <div class="bulletin-text"><b>平日數理輔導課程：</b>數學、理化分科小班教學，弱點當堂點出、當堂訂正，鎖定國中生總複習。</div>
+          <span class="badge">平日晚間</span>
+        </div>
+      </div>
+
+      <div class="hero-card-cta">
+        <a class="btn btn-primary" href="#contact">預約桌遊試玩</a>
+        <a class="btn btn-ghost" href="#contact">預約數理諮詢</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT / FEATURES -->
+  <section class="section" id="about" style="padding-top:64px;">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">為什麼家長選擇弈思</span>
+        <h2>兩種課，同一種用心</h2>
+        <p>不管是週末的桌遊，還是平日的數理，我們在意的是孩子有沒有真的學到東西、玩到開心。</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card reveal">
+          <svg viewBox="0 0 40 40" fill="none"><circle cx="14" cy="16" r="6" fill="var(--orange)"/><circle cx="27" cy="16" r="6" fill="var(--ink-soft)"/><path d="M6 33c1-6 5-9 8-9s7 3 8 9M20 33c1-6 5-9 8-9s6 3 7 9" stroke="var(--ink-soft)" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
+          <h3>小班制陪伴</h3>
+          <p>每班不超過 4 人，老師顧得到每個孩子的學習節奏與個性。</p>
+        </div>
+        <div class="feature-card reveal">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M9 2h6M12 2v5" stroke="var(--orange-deep)" stroke-width="2.2" stroke-linecap="round"/><path d="M8 7h8l3 8a4 4 0 0 1-4 5H9a4 4 0 0 1-4-5l3-8Z" fill="var(--orange-tint)" stroke="var(--orange-deep)" stroke-width="2.2"/><path d="M7.5 14h9" stroke="var(--orange-deep)" stroke-width="2" stroke-linecap="round"/></svg>
+          <h3>分科扎實教學</h3>
+          <p>數學、理化老師依段考進度分層教學，弱點當次點出、當次補強。</p>
+        </div>
+        <div class="feature-card reveal">
+          <svg viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="12" height="12" rx="3" fill="var(--ink-soft)" opacity=".8"/><rect x="22" y="22" width="12" height="12" rx="3" fill="var(--orange)"/><circle cx="12" cy="12" r="1.4" fill="#fff"/><circle cx="28" cy="28" r="1.4" fill="#fff"/></svg>
+          <h3>桌遊練出軟實力</h3>
+          <p>策略、邏輯、輸贏後的情緒調節，都是遊戲桌上真實發生的練習。</p>
+        </div>
+        <div class="feature-card reveal">
+          <svg viewBox="0 0 40 40" fill="none"><rect x="7" y="9" width="26" height="20" rx="3" fill="none" stroke="var(--orange-deep)" stroke-width="2.2"/><path d="M7 15h26" stroke="var(--orange-deep)" stroke-width="2.2"/><path d="M13 22h6M13 26h10" stroke="var(--ink-soft)" stroke-width="2.2" stroke-linecap="round"/></svg>
+          <h3>進度即時回報</h3>
+          <p>不論是段考成績還是桌遊表現，老師都會主動跟家長同步孩子的狀況。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section class="section alt" id="programs">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">課程項目</span>
+        <h2>只做兩件事，但都做到底</h2>
+        <p>弈思目前開設兩大課程，分別對應假日與平日晚間的不同需求。</p>
+      </div>
+      <div class="program-grid">
+        <div class="program-card reveal">
+          <div class="program-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <h3>六日桌遊課程</h3>
+          <div class="program-meta">
+            <span class="badge">招生中</span>
+            <span class="badge">國小中年級～國中</span>
+          </div>
+          <p class="desc">每堂課圍繞一款策略桌遊設計，從規則討論、局勢判斷到覆盤檢討，孩子在遊戲裡練思考，也練怎麼跟人合作與競爭。</p>
+          <ul class="program-points">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>每月更換主題桌遊，涵蓋邏輯、經濟、推理類型</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>混齡分組，鼓勵孩子向不同年紀的同伴學策略</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>每季一次班內小賽事，累積名次帶來的正向挑戰</li>
+          </ul>
+          <div class="program-time">10:00–12:00 ／ 14:00–16:00<span>每週六、週日，可擇一場次</span></div>
+        </div>
+
+        <div class="program-card reveal">
+          <div class="program-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6M12 2v5"/><path d="M8 7h8l3 8a4 4 0 0 1-4 5H9a4 4 0 0 1-4-5l3-8Z"/><path d="M7.5 14h9"/></svg>
+          </div>
+          <h3>平日數理輔導課程</h3>
+          <div class="program-meta">
+            <span class="badge">熱門</span>
+            <span class="badge">國中一～三年級</span>
+          </div>
+          <p class="desc">數學與理化分科小班教學，先抓出孩子卡住的觀念，再依段考進度補強，晚間下課前一定完成當日訂正。</p>
+          <ul class="program-points">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>數學：觀念講解＋分層練習＋弱點診斷</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>理化：生活現象出發，搭配實驗影片與圖解</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>段考前兩週安排總複習衝刺班</li>
+          </ul>
+          <div class="program-time">19:00–21:00<span>週一至週五，可依需求選課</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEEKLY SCHEDULE -->
+  <section class="section" id="schedule">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">一週課表</span>
+        <h2>弈思的一週，長這樣</h2>
+        <p>平日晚上是數理，週末白天是桌遊，一週七天各有安排。</p>
+      </div>
+      <div class="week-list reveal">
+        <div class="week-row">
+          <div class="day-badge">一</div>
+          <div class="week-course">數學進度班<span>觀念講解與分層練習</span></div>
+          <div class="week-time num">19:00–21:00</div>
+        </div>
+        <div class="week-row">
+          <div class="day-badge">二</div>
+          <div class="week-course">理化觀念班<span>生活現象＋圖解教學</span></div>
+          <div class="week-time num">19:00–21:00</div>
+        </div>
+        <div class="week-row">
+          <div class="day-badge">三</div>
+          <div class="week-course">數學弱點診斷<span>個人化補強與訂正</span></div>
+          <div class="week-time num">19:00–21:00</div>
+        </div>
+        <div class="week-row">
+          <div class="day-badge">四</div>
+          <div class="week-course">理化實驗探索<span>圖解實驗與觀念釐清</span></div>
+          <div class="week-time num">19:00–21:00</div>
+        </div>
+        <div class="week-row">
+          <div class="day-badge">五</div>
+          <div class="week-course">總複習衝刺班<span>段考重點整理</span></div>
+          <div class="week-time num">19:00–21:00</div>
+        </div>
+        <div class="week-row weekend">
+          <div class="day-badge">六</div>
+          <div class="week-course">桌遊課程・上午場<span>策略邏輯與團隊任務</span></div>
+          <div class="week-time num">10:00–12:00</div>
+        </div>
+        <div class="week-row weekend">
+          <div class="day-badge">日</div>
+          <div class="week-course">桌遊課程・下午場<span>策略邏輯與團隊任務</span></div>
+          <div class="week-time num">14:00–16:00</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEACHERS -->
+  <section class="section alt" id="teachers">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">學堂主持人</span>
+        <h2>陳老師・弈思學堂創辦人</h2>
+        <p>由主持人親自授課把關，確保每個孩子的學習狀況都有人看得到、顧得到。</p>
+      </div>
+      <div class="teacher-grid">
+        <div class="teacher-card reveal">
+          <div class="avatar">
+            <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M20 12v8l6 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+          </div>
+          <h3>陳老師</h3>
+          <span class="teacher-role">學堂主持人</span>
+          <div class="teacher-credentials">
+            <span class="badge">台大碩士</span>
+            <span class="badge">中等學校教師證</span>
+            <span class="badge">關務特考機械工程及格</span>
+          </div>
+          <p class="bio">國立臺灣大學碩士，具中等學校教師證，並通過關務特考機械工程類科，橫跨學校教育與國家考試體系的扎實背景，是弈思學堂數理課程的主要授課老師。</p>
+          <ul class="teacher-exp">
+            <li><b>曾任教：</b>大安高工、南陽街補習班、國考補習班</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">家長怎麼說</span>
+        <h2>從被動應付，到主動想辦法</h2>
+      </div>
+      <div class="quote-strip">
+        <div class="quote reveal">
+          <p class="text">「數學從不及格到現在會自己訂正錯題，理化考試也不再是用猜的，段考前的衝刺班幫了很大的忙。」</p>
+          <p class="who">— 阿廷媽媽・國二家長</p>
+        </div>
+        <div class="quote reveal">
+          <p class="text">「原本只是想讓孩子放鬆一下，結果他開始會主動想策略，也交到固定一起討論桌遊的朋友。」</p>
+          <p class="who">— 小樂爸爸・國小高年級家長</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section alt" id="contact">
+    <div class="wrap contact-grid">
+      <div class="reveal">
+        <span class="eyebrow">聯絡我們</span>
+        <h2 style="margin-top:14px;">歡迎先來體驗一堂課</h2>
+        <p style="margin-top:12px;color:var(--ink-soft);">不用先決定，先來試玩一場桌遊、或帶著段考考卷來聊聊，再決定要不要加入弈思。</p>
+        <div style="margin-top:22px;">
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <div><b>地址</b><span>高雄市鳳山區保安二街</span></div>
+          </div>
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            <div><b>開放時間</b><span>週一至週五 18:30–21:00・週六日 09:30–16:30</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cta-card reveal">
+        <span class="eyebrow" style="background:rgba(255,255,255,0.28);color:inherit;">預約試上</span>
+        <h2>留下資料，我們幫您安排體驗時段</h2>
+        <p>桌遊試玩約 1 小時，數理課程可先安排 30 分鐘程度諮詢，老師會依情況建議合適的班別。</p>
+        <a class="btn btn-on-orange" href="#">預約體驗時段</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-row">
+    <div class="foot-brand">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <rect x="2" y="2" width="36" height="36" rx="11" fill="var(--orange)"/>
+        <g stroke="#fff" stroke-width="1.8" stroke-linecap="round">
+          <line x1="12" y1="12" x2="20" y2="20"/><line x1="28" y1="12" x2="20" y2="20"/>
+          <line x1="12" y1="28" x2="20" y2="20"/><line x1="28" y1="28" x2="20" y2="20"/>
+        </g>
+        <circle cx="12" cy="12" r="3" fill="#fff"/><circle cx="28" cy="12" r="3" fill="#fff"/>
+        <circle cx="12" cy="28" r="3" fill="#fff"/><circle cx="28" cy="28" r="3" fill="#fff"/>
+        <circle cx="20" cy="20" r="4.3" fill="#fff"/><circle cx="20" cy="20" r="1.7" fill="var(--orange)"/>
+      </svg>
+      弈思學堂
+    </div>
+    <span>© 2026 弈思學堂・版面內容為示範資料，正式上線前請替換為實際資訊</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var toggle = document.getElementById('menuToggle');
+    var links = document.getElementById('navLinks');
+    if(toggle && links){
+      toggle.addEventListener('click', function(){
+        var open = links.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      links.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(){ links.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); });
+      });
+    }
+
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = document.querySelectorAll('.reveal');
+    if(prefersReduced || !('IntersectionObserver' in window)){
+      items.forEach(function(el){ el.classList.add('in'); });
+    } else {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, {threshold:0.15});
+      items.forEach(function(el){ io.observe(el); });
+    }
+  })();
+</script>
+</body>
+</html>
